@@ -135,12 +135,13 @@ public class Problem {
 //            point.render(gl);
 //        }
 //
-        Figures.renderPoint(gl,new Vector(0.1,0.2), 5);
-        Figures.renderPoint(gl,new Vector(0.3,0.7), 3);
-//        Figures.renderLine(4,1, 5);
-//        Figures.renderTriangle( 4,7,4,3,true );
-//        Figures.renderQuad(4,1 4 ,5,true);
-//        Figures.renderCircle();
+//        Figures.renderPoint(gl,new Vector(0.1,0.2), 5);
+//        Figures.renderPoint(gl,new Vector(0.6,0.9), 3);
+//        Figures.renderLine(gl, new Vector(-0.3, -0.7), new Vector(-0.5, -0.8), 13);
+//        Figures.renderTriangle( gl, new Vector(0.4, 0.2), new Vector(0.5, 0.8), new Vector(-0.9, 0.8), true );
+//        Figures.renderQuad(gl, new Vector(0.3, -0.7), new Vector(0.5, -0.8), new Vector(0.9, -0.8), new Vector( -0.3, 0.2), true);
+        Figures.renderCircle(gl, new Vector(0.3, -0.7), 0.9, false);
+       // Figures.renderCircle(gl, new Vector(-0.3, 0.7), 0.9, false);
     }
 
 }
