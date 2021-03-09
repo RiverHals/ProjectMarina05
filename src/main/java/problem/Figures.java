@@ -60,11 +60,14 @@ public class Figures {
             }
             gl.glEnd();
         } else {
+            System.out.println("__________________");
             gl.glBegin(GL.GL_LINE_STRIP);
             for (int i = 0; i <= n; i++) {
-                double angle = (2 * Math.PI) / n*i;
+                double angle = (2 * Math.PI) / n * i;
+
                 double x = rad * Math.cos(angle) + A.x;
                 double y = rad * Math.sin(angle) + A.y;
+               // System.out.printf("%.3f %.3f\n", x,y);
                 gl.glVertex2d(x, y);
             }
             gl.glEnd();
