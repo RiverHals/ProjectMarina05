@@ -14,11 +14,11 @@ public class Problem {
      * текст задачи
      */
     public static final String PROBLEM_TEXT = "Постановка задачи" +
-            "На плоскости задано множество точек. " +
-            "Найти окружность, содержащую внутри себя хотя бы две точки множества, " +
-            "имеющую наибольшую плотность точек внутри себя (количество точек на " +
-            "единицу площади). В качестве ответа нарисовать найденную окружность и" +
-            " выделить все точки, находящиеся внутри нее. ?? Превратить к кружочки??";
+            "На плоскости задано множество точек.\n " +
+            "Найти окружность, содержащую внутри себя хотя бы две точки множества,\n " +
+            "имеющую наибольшую плотность точек внутри себя (количество точек на \n" +
+            "единицу площади). В качестве ответа нарисовать найденную окружность и\n" +
+            " выделить все точки, находящиеся внутри нее. ";
 
     /**
      * заголовок окна
@@ -34,14 +34,13 @@ public class Problem {
      * список точек
      */
     private ArrayList<Point> points;
-    private ArrayList<Circle> circles;
+    Circle circle;
 
     /**
      * Конструктор класса задачи
      */
     public Problem() {
         points = new ArrayList<>();
-        circles = new ArrayList<>();
     }
 
     /**
@@ -61,17 +60,8 @@ public class Problem {
     public void solve() {
         // перебираем пары точек
         for (Point p : points) {
-            for (Point p2 : points) {
-                // если точки являются разными
-                if (p != p2) {
-                    // если координаты у них совпадают
-                    if (Math.abs(p.x - p2.x) < 0.0001 && Math.abs(p.y - p2.y) < 0.0001) {
-                        p.isSolution = true;
-                        p2.isSolution = true;
-                    }
-                }
-            }
         }
+        circle = new Circle(new Vector(0.1, 0.3), 0.3);
     }
 
     /**
@@ -117,7 +107,6 @@ public class Problem {
      */
     public void addRandomPoints(int n) {
         for (int i = 0; i < n; i++) {
-            Point point = Point.getRandomPoint();
             points.add(Point.getRandomPoint());
         }
     }
@@ -127,6 +116,7 @@ public class Problem {
      */
     public void clear() {
         points.clear();
+        circle = null;
     }
 
     /**
@@ -137,5 +127,7 @@ public class Problem {
     public void render(GL2 gl) {
         for (Point point : points)
             point.render(gl);
+        if (circle != null)
+            circle.render(gl);
     }
 }

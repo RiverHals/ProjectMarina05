@@ -1,4 +1,5 @@
 package problem;
+
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GL2GL3;
@@ -13,15 +14,15 @@ public class Circle {
         this.rad = rad;
     }
 
-    public void render(GL2 gl){
-        Figures.renderCircle(gl,center,rad,false);
+    public void render(GL2 gl) {
+        Figures.renderCircle(gl, center, rad, false);
     }
 
-    public static Circle getRandomCircle(){
+    public static Circle getRandomCircle() {
         Random random = new Random();
         return new Circle(
-                new Vector(random.nextDouble()*2-1,random.nextDouble()*2-1),
-                random.nextDouble()*0.3
+                new Vector(random.nextDouble() * 2 - 1, random.nextDouble() * 2 - 1),
+                random.nextDouble() * 0.3
         );
     }
 }

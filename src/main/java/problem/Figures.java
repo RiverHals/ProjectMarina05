@@ -60,7 +60,6 @@ public class Figures {
             }
             gl.glEnd();
         } else {
-            System.out.println("__________________");
             gl.glBegin(GL.GL_LINE_STRIP);
             for (int i = 0; i <= n; i++) {
                 double angle = (2 * Math.PI) / n * i;
