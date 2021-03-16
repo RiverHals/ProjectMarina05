@@ -3,6 +3,7 @@ package problem;
 import javax.media.opengl.GL2;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -12,14 +13,17 @@ public class Problem {
     /**
      * текст задачи
      */
-    public static final String PROBLEM_TEXT = "ПОСТАНОВКА ЗАДАЧИ:\n" +
-            "Заданы два множества точек в пространстве.\n" +
-            "Требуется построить пересечения и разность этих множеств";
+    public static final String PROBLEM_TEXT = "Постановка задачи" +
+            "На плоскости задано множество точек. " +
+            "Найти окружность, содержащую внутри себя хотя бы две точки множества, " +
+            "имеющую наибольшую плотность точек внутри себя (количество точек на " +
+            "единицу площади). В качестве ответа нарисовать найденную окружность и" +
+            " выделить все точки, находящиеся внутри нее. ?? Превратить к кружочки??";
 
     /**
      * заголовок окна
      */
-    public static final String PROBLEM_CAPTION = "Итоговый проект ученика 10-7 Иванова Ивана";
+    public static final String PROBLEM_CAPTION = "Итоговый проект ученицы 10-7 Малышкиной Марины";
 
     /**
      * путь к файлу
@@ -30,23 +34,24 @@ public class Problem {
      * список точек
      */
     private ArrayList<Point> points;
+    private ArrayList<Circle> circles;
 
     /**
      * Конструктор класса задачи
      */
     public Problem() {
         points = new ArrayList<>();
+        circles = new ArrayList<>();
     }
 
     /**
      * Добавить точку
      *
-     * @param x      координата X точки
-     * @param y      координата Y точки
-     * @param setVal номер множества
+     * @param x координата X точки
+     * @param y координата Y точки
      */
-    public void addPoint(double x, double y, int setVal) {
-        Point point = new Point(x, y, setVal);
+    public void addPoint(double x, double y) {
+        Point point = new Point(x, y);
         points.add(point);
     }
 
@@ -81,9 +86,8 @@ public class Problem {
             while (sc.hasNextLine()) {
                 double x = sc.nextDouble();
                 double y = sc.nextDouble();
-                int setVal = sc.nextInt();
                 sc.nextLine();
-                Point point = new Point(x, y, setVal);
+                Point point = new Point(x, y);
                 points.add(point);
             }
         } catch (Exception ex) {
@@ -98,7 +102,7 @@ public class Problem {
         try {
             PrintWriter out = new PrintWriter(new FileWriter(FILE_NAME));
             for (Point point : points) {
-                out.printf("%.2f %.2f %d\n", point.x, point.y, point.setNumber);
+                out.printf("%.2f %.2f %d\n", point.x, point.y);
             }
             out.close();
         } catch (IOException ex) {
@@ -113,8 +117,8 @@ public class Problem {
      */
     public void addRandomPoints(int n) {
         for (int i = 0; i < n; i++) {
-            Point p = Point.getRandomPoint();
-            points.add(p);
+            Point point = Point.getRandomPoint();
+            points.add(Point.getRandomPoint());
         }
     }
 
@@ -131,17 +135,7 @@ public class Problem {
      * @param gl переменная OpenGL для рисования
      */
     public void render(GL2 gl) {
-//        for (Point point : points) {
-//            point.render(gl);
-//        }
-//8
-//        Figures.renderPoint(gl,new Vector(0.1,0.2), 5);
-//        Figures.renderPoint(gl,new Vector(0.6,0.9), 3);
-//        Figures.renderLine(gl, new Vector(-0.3, -0.7), new Vector(-0.5, -0.8), 13);
-//        Figures.renderTriangle( gl, new Vector(0.4, 0.2), new Vector(0.5, 0.8), new Vector(-0.9, 0.8), true );
-//        Figures.renderQuad(gl, new Vector(0.3, -0.7), new Vector(0.5, -0.8), new Vector(0.9, -0.8), new Vector( -0.3, 0.2), true);
-        Figures.renderCircle(gl, new Vector(0.0, 0.0), 0.9, false);
-       // Figures.renderCircle(gl, new Vector(-0.3, 0.7), 0.9, false);
+        for (Point point : points)
+            point.render(gl);
     }
-
 }
