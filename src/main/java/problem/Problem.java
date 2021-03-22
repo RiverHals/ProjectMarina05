@@ -76,10 +76,10 @@ public class Problem {
         Vector mbc=midpoint(b,c);
         Vector dbc=vdiff(b,c);
         // линейная система для нахождения пересечения перпендикуляров
-        double c11=dab.y,c12=-dab.x,
-                c21=dbc.y,c22=-dbc.x,
+        double c11=dab.x,c12=dab.y,
+                c21=dbc.x,c22=dbc.y,
                 f1=mab.x*c11+mab.y*c12,
-                f2=mbc.x*c12+mbc.y*c22;
+                f2=mbc.x*c21+mbc.y*c22;
         double det=c11*c22-c12*c21,
                 xc=(f1*c22-c12*f2)/det,
                 yc=-(c11*f2-f1*c12)/det;
