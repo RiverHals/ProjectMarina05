@@ -58,7 +58,7 @@ public class Problem {
      * Решить задачу
      */
     public void solve() {
-        // перебираем пары точек
+        // перебираем пары и тройки точек
         for (Point p : points) {
         }
         circle = new Circle(new Vector(0.1, 0.3), 0.3);
