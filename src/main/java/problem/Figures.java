@@ -62,7 +62,7 @@ public class Figures {
         } else {
             gl.glBegin(GL.GL_LINE_STRIP);
             for (int i = 0; i <= n; i++) {
-                double angle = (2 * Math.PI) / n * i;
+                double angle = i*((2 * Math.PI) / n);
 
                 double x = rad * Math.cos(angle) + A.x;
                 double y = rad * Math.sin(angle) + A.y;
