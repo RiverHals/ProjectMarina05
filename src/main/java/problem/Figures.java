@@ -48,7 +48,7 @@ public class Figures {
     }
 
     public static void renderCircle(GL2 gl, Vector A, double rad, boolean filled) {
-        int n = 20;
+        int n = 200;
         if (filled) {
             gl.glBegin(GL.GL_TRIANGLE_FAN);
             gl.glVertex2d(A.x, A.y);
