@@ -82,7 +82,7 @@ public class Problem {
                 f2=mbc.x*c21+mbc.y*c22;
         double det=c11*c22-c12*c21,
                 xc=(f1*c22-c12*f2)/det,
-                yc=-(c11*f2-f1*c12)/det;
+                yc=(c11*f2-f1*c21)/det;
         Vector center=new Vector(xc,yc);
         return new Circle(center,dist(center,a));
     }
@@ -127,6 +127,7 @@ public class Problem {
                 for (int k = j + 1; k <= n; k++) { // перебор: все тройки + диаметр
                     Circle c;
                     if (k >= n) {
+                        //if(true) continue; // test
                         // на диаметре, специальный случай k=n (k выходящее за границы индекса 0..n-1 мы используем как флаг использовать пару точек на диаметре, а не тройку точек
                         c = getCircleOnRadius(pi, pj);
                     } else {
