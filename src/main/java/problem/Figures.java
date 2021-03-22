@@ -66,7 +66,7 @@ public class Figures {
 
                 double x = rad * Math.cos(angle) + A.x;
                 double y = rad * Math.sin(angle) + A.y;
-               // System.out.printf("%.3f %.3f\n", x,y);
+                //System.out.println("x="+x+"y="+y+" angle="+angle);
                 gl.glVertex2d(x, y);
             }
             gl.glEnd();
