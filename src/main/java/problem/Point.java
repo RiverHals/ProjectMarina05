@@ -7,7 +7,7 @@ import java.util.Random;
 /**
  * Класс точки
  */
-public class Point {
+public class Point extends Vector{
     /**
      * пересекается ли точка с точкой из другого множества
      * (является ли она решением)
@@ -16,11 +16,11 @@ public class Point {
     /**
      * x - координата точки
      */
-    double x;
+    //double x;
     /**
      * y - координата точки
      */
-    double y;
+    //double y;
 
     /**
      * Конструктор точки
@@ -29,8 +29,7 @@ public class Point {
      * @param y         координата y
      */
     Point(double x, double y) {
-        this.x = x;
-        this.y = y;
+        super(x,y);
     }
 
 
