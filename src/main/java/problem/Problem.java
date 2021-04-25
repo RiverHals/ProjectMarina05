@@ -166,15 +166,17 @@ public class Problem {
         points.clear();
         try {
             File file = new File(FILE_NAME_INPUT);
+            System.err.println("Читаем "+file);
             Scanner sc = new Scanner(file);
             // пока в файле есть непрочитанные строки
             while (sc.hasNextLine()) {
-                double x = sc.nextDouble();
-                double y = sc.nextDouble();
-                sc.nextLine();
+                String [] d=sc.nextLine().split("\\s");
+                if(d.length!=2) continue;
+                double x = Double.valueOf(d[0]),y=Double.valueOf(d[1]);
                 Point point = new Point(x, y);
                 points.add(point);
             }
+            System.err.println("Считано "+points.size()+" точек из "+file);
         } catch (Exception ex) {
             System.out.println("Ошибка чтения из файла: "+FILE_NAME_INPUT+"\n" + ex);
         }
