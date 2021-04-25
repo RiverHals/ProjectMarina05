@@ -3,6 +3,7 @@ package problem;
 import javax.media.opengl.GL2;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -14,7 +15,7 @@ public class Problem {
      * текст задачи
      */
     public static final String PROBLEM_TEXT = "Постановка задачи" +
-            "На плоскости задано множество точек.\n " +
+            " На плоскости задано множество точек.\n " +
             "Найти окружность, содержащую внутри себя хотя бы две точки множества,\n " +
             "имеющую наибольшую плотность точек внутри себя (количество точек на \n" +
             "единицу площади). В качестве ответа нарисовать найденную окружность и\n" +
@@ -28,7 +29,10 @@ public class Problem {
     /**
      * путь к файлу
      */
-    private static final String FILE_NAME = "points.txt";
+    private static final String
+            FILE_NAME_INPUT="points.txt",
+            FILE_NAME_ALL = FILE_NAME_INPUT,
+            FILE_NAME_SOLUTION = "points_solution.txt";
 
     /**
      * список точек
@@ -108,6 +112,7 @@ public class Problem {
      * Решить задачу
      */
     public void solve() {
+        final long t0=System.currentTimeMillis();
         // перебираем пары и тройки точек
         double maxdensity = 0;
         Circle maxdensitycircle = null;
@@ -150,6 +155,8 @@ public class Problem {
         //    maxdensity - плотность;
 
         circle = maxdensitycircle;
+        final long t1=System.currentTimeMillis();
+        System.err.println("Решение для "+points.size()+" точек найдено за "+(t1-t0)+" миллисекунд");
     }
 
     /**
@@ -158,7 +165,7 @@ public class Problem {
     public void loadFromFile() {
         points.clear();
         try {
-            File file = new File(FILE_NAME);
+            File file = new File(FILE_NAME_INPUT);
             Scanner sc = new Scanner(file);
             // пока в файле есть непрочитанные строки
             while (sc.hasNextLine()) {
@@ -169,7 +176,7 @@ public class Problem {
                 points.add(point);
             }
         } catch (Exception ex) {
-            System.out.println("Ошибка чтения из файла: " + ex);
+            System.out.println("Ошибка чтения из файла: "+FILE_NAME_INPUT+"\n" + ex);
         }
     }
 
@@ -177,12 +184,28 @@ public class Problem {
      * Сохранить задачу в файл
      */
     public void saveToFile() {
+        System.err.println("всего точек="+points.size()+" circle="+circle);
         try {
-            PrintWriter out = new PrintWriter(new FileWriter(FILE_NAME));
-            for (Point point : points) {
-                out.printf("%.2f %.2f %d\n", point.x, point.y);
+            // вывод двух файлов
+            for(int i=0;i<2;i++){
+                final String f;
+                final List<? extends Vector> datapoints;
+                if(i==0){
+                    // all points
+                    f=FILE_NAME_ALL;
+                    datapoints=points;
+                } else {
+                    // the solution
+                    f=FILE_NAME_SOLUTION;
+                    datapoints=getPointsInsideFoundCircle();
+                }
+                System.err.println("Печать "+datapoints.size()+" точек в "+f);
+                PrintWriter out = new PrintWriter(f);
+                for (Vector point : datapoints ) {
+                    out.println(String.valueOf(point.x)+" "+String.valueOf(point.y));
+                }
+                out.close();
             }
-            out.close();
         } catch (IOException ex) {
             System.out.println("Ошибка записи в файл: " + ex);
         }
@@ -205,6 +228,17 @@ public class Problem {
     public void clear() {
         points.clear();
         circle = null;
+    }
+
+
+    List<Vector> getPointsInsideFoundCircle(){
+        final Circle c=this.circle;
+        if(c==null) return new ArrayList<Vector>();
+        final double epsRadius=c.rad+1e-5;
+        // выбрать точки, имеющие расстояние до центра окружности <= радиус+1e-5
+        return points.stream()
+                .filter(p -> dist(p,c.center)<=epsRadius)
+                .collect(java.util.stream.Collectors.toList());
     }
 
     /**
